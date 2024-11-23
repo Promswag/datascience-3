@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 import os
 
 def main():
@@ -9,8 +10,15 @@ def main():
         df = pd.read_csv(path)
         df2 = pd.read_csv(path2)
 
-        df_sith = df[df['knight'] == 'Sith']
-        df_jedi = df[df['knight'] == 'Jedi']
+        scaler = StandardScaler()
+        scaled_data = pd.DataFrame(scaler.fit_transform(df.drop('knight', axis=1)), columns=df.columns[:-1])
+        scaled_data['knight'] = df['knight']
+        df2 = pd.DataFrame(scaler.fit_transform(df2), columns=df2.columns)
+        print(scaled_data)
+        print(df2)
+
+        df_sith = scaled_data[scaled_data['knight'] == 'Sith']
+        df_jedi = scaled_data[scaled_data['knight'] == 'Jedi']
 
         fig, axs = plt.subplots(nrows=2, ncols=2)
 
