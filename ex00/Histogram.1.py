@@ -6,7 +6,6 @@ def main():
     try:
         path = os.path.join("..", "ressources", "Test_knight.csv")
         df = pd.read_csv(path)
-        print(len(df.columns))
 
         fig, axs = plt.subplots(nrows=6, ncols=5, figsize=(15, 18))
 
